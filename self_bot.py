@@ -417,6 +417,6 @@ cmds = {
 ## FANCY TOKEN LOGIN STUFFS ##
 ##############################
 
-with open('self_token.txt') as token:
+with open('self_bot_token.txt') as token:
     bot.run(token.read(), bot=False)
 
