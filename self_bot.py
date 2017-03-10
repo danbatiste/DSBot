@@ -51,7 +51,7 @@ async def hi(ctx):
     await bot.say('hi')
 
 
-@bot.command(pass_context=True, hidden=True)
+@bot.command(pass_context=True)
 async def ping(ctx):
     await bot.delete_message(ctx.message)
     tmp = await bot.say('pong')
@@ -59,7 +59,7 @@ async def ping(ctx):
     await bot.delete_message(tmp)
 
 
-@bot.command(pass_context=True, hidden=True)
+@bot.command(pass_context=True)
 async def sd(ctx, t: int, *, message: str):
     i = t
     while i > 0:
@@ -69,8 +69,8 @@ async def sd(ctx, t: int, *, message: str):
     await bot.delete_message(ctx.message)
 
 
-@bot.command(pass_context=True, hidden=True)
-async def _(ctx, n=1000000):
+@bot.command(pass_context=True)
+async def _(ctx, n=100):
     count = -1
     async for log in bot.logs_from(ctx.message.channel, limit=1000000):
         if log.author == ctx.message.author and count < n:
@@ -79,20 +79,21 @@ async def _(ctx, n=1000000):
 
 
 @bot.command(pass_context=True)
-async def count(ctx):
-    counter = 0
+async def purge(ctx, n=100):
+    count = -1
     async for log in bot.logs_from(ctx.message.channel, limit=1000000):
-        counter += 1
-    await bot.say('Counted `{}` messages'.format(counter))
+        if log.author == ctx.message.author and count < n:
+            count += 1
+            await bot.delete_message(log)
 
 
-@bot.command(pass_context=True, hidden=True)
+@bot.command(pass_context=True)
 async def e(ctx, *, message):
     await bot.delete_message(ctx.message)
     await bot.say(emojify(message))
 
 
-@bot.command(pass_context=True, hidden=True)
+@bot.command(pass_context=True)
 async def n(ctx, a: int, b: int, s: int, *, message: str):
     msg = message.split('$n')
     for i in range(a, b+1)[::s]:
@@ -100,7 +101,7 @@ async def n(ctx, a: int, b: int, s: int, *, message: str):
         time.sleep(1)
 
 
-@bot.command(pass_context=True, hidden=True)
+@bot.command(pass_context=True)
 async def rect(ctx, x: int, y: int, outer = ':black_large_square:', inner = ':white_large_square:'):
     bs = outer
     ws = inner
@@ -112,14 +113,15 @@ async def rect(ctx, x: int, y: int, outer = ':black_large_square:', inner = ':wh
     await bot.say(rect)
 
 
-@bot.command(pass_context=True, hidden=True)
+@bot.command(pass_context=True)
 async def hug(ctx, *names: str):
+
     await bot.delete_message(ctx.message)
     for name in names:
         await bot.say('*hugs {}*'.format(name))
 
 
-@bot.command(pass_context=True, hidden=True)
+@bot.command(pass_context=True)
 async def heart(ctx, H = ':heart:', r = ':gay_pride_flag:'):
     heart =[[r,r,r,r,r,r,r,r,r,r,r],
             [r,r,H,H,H,r,H,H,H,r,r],
@@ -154,7 +156,7 @@ async def all(ctx, *, message: str):
 
 
 @bot.command(pass_context=True)
-async def rel(ctx):
+async def reload(ctx):
     await bot.delete_message(ctx.message)
     os.system('cls')
     os.system(sys.argv[0])
@@ -299,7 +301,10 @@ async def g(ctx, *, message: str):
 @bot.command(pass_context=True)
 async def em(ctx, colour: str, *, message: str):
     await bot.delete_message(ctx.message)
-    await bot.say(embed=discord.Embed(colour=eval(colour), description=message))
+    try:
+        await bot.say(embed=discord.Embed(colour=colours[colour], description=message))
+    except:
+        await bot.say(embed=discord.Embed(colour=eval(colour), description=message))
 
 
 ################
@@ -343,9 +348,33 @@ async def halp(cmd = '', attr = ''):
 
 colours = {
     'default'   : 0x1f8b4c,
+    'red'       : discord.Colour.red(),
+    'green'     : discord.Colour.green(),
+    'light_grey': discord.Colour.light_grey(),
+    'lighter_grey'  : discord.Colour.lighter_grey(),
+    'magenta'   : discord.Colour.magenta(),
+    'orange'    : discord.Colour.orange(),
+    'purple'    : discord.Colour.purple(),
+    'teal'      : discord.Colour.teal(),
+    'gold'      : discord.Colour.gold(),
+    'darker_grey'   : discord.Colour.darker_grey(),
+    'dark_teal' : discord.Colour.dark_teal(),
+    'dark_red'  : discord.Colour.dark_red(),
+    'dark_purple'   : discord.Colour.dark_purple(),
+    'dark_orange'   : discord.Colour.dark_orange(),
+    'dark_magenta'  : discord.Colour.dark_magenta(),
+    'dark_grey' : discord.Colour.dark_grey(),
+    'dark_green': discord.Colour.dark_green(),
+    'dark_gold' : discord.Colour.dark_gold(),
+    'dark_blue' : discord.Colour.dark_blue(),
+    'blue'      : discord.Colour.blue(),
+    'black'     : 0x000000,
+    'white'     : 0xFFFFFF,
     'brown'     : 0x795548,
     'sus_green' : 0x1f8b4c,
 }
+colors = colours
+
 
 def embed(description='\u034f', colour=colours['default'], name='\u034f', value='\u034f', inline=True):
     data = discord.Embed(description=description, colour=colour)
@@ -382,13 +411,12 @@ embeds = {
             'inline'        : True,
         },
     },
-
 }
 
 
 cmds = {
     'halp' : {
-        'Usage' : '1{}help [command]`'.format(prefix),
+        'Usage' : '`{}help [command]`'.format(prefix),
         'Info'  : 'Displays all commands, and displays information about specific commands',
         },
 
@@ -421,6 +449,87 @@ cmds = {
         'Usage' : '`{}xkcd [comic # | search term]`'.format(prefix),
         'Info'  : 'Finds an xkcd comic by number or search term, and then displays it in chat. Can also invoke the command without arguments to display the most recent xkcd.',
         },
+
+    'aes'   : {
+        'Usage' : '`{}aes message`'.format(prefix),
+        'Info'  : 'Makes a message aesthetic.',
+        },
+
+    'bb'   : {
+        'Usage' : '`{}bb message`'.format(prefix),
+        'Info'  : 'Makes a message Blackboard font.',
+        },
+
+    'e' : {
+        'Usage' : '`{}e message'.format(prefix),
+        'Info'  : 'Converts the message to emoji. `/r for a random emoji, `/heart` for a random heart, and `/face` for a random face.',
+    },
+
+    'shrug' : {
+        'Usage' : '`{}shrug message`'.format(prefix),
+        'Info'  : 'Appends the shrugging emoticon to the end of a message.',
+    },
+
+    'all' : {
+        'Usage' : '`{}all message`'.format(prefix),
+        'Info'  : 'Displays the message in italics, bold, and underlined.',
+    },
+
+    'purge' : {
+        'Usage' : '`{}_ n`'.format(prefix),
+        'Info'  : 'Deletes the last `n` messages.',
+    },
+
+    'em' : {
+        'Usage' : '`{}em color message`'.format(prefix),
+        'Info'  : 'Embeds a message with a given color.',
+    },
+
+    'g' : {
+        'Usage' : '`{}g message`'.format(prefix),
+        'Info'  : 'Embeds a message with "suspucious green".',
+    },
+
+    'py' : {
+        'Usage' : '`{}py code`'.format(prefix),
+        'Info'  : 'Evaluates Python code and then sends a message containing the value returned.',
+    },
+
+    'status' : {
+        'Usage' : '`{}status status`'.format(prefix),
+        'Info'  : 'Changes the user\'s status.',
+    },
+
+    'rect' : {
+        'Usage' : '`{}rect width height [outer_emoji] [inner_emoji]`'.format(prefix),
+        'Info'  : 'Creates a rectangle of dimensions `width`x`height`. The outer_emoji and inner_emoji are :black_large_square: and :white_large_square: by default.',
+    },
+
+    're' : {
+        'Usage' : '`{}re n [caps?]`'.format(prefix),
+        'Info'  : 'REEEs with `n` number of \'E\'s. Caps is True by default.',
+    },
+
+    'hi' : {
+        'Usage' : '`{}hi`'.format(prefix),
+        'Info'  : 'Says hi',
+    },
+
+    'sd' : {
+        'Usage' : '`{}sd t message`'.format(prefix),
+        'Info'  : 'Puts out a message that self destructs in `t` seconds. `t` must be an integer.',
+    },
+
+    'hug' : {
+        'Usage' : '`{}hug [user1] [user2] ...`'.format(prefix),
+        'Info'  : 'Hugs each user.',
+    },
+
+    'mathf' : {
+        'Usage' : '`{}mathf message`. Sample message: W = N{{dot}}m'.format(prefix),
+        'Info'  : 'Formats a message with mathematical symbols. ',
+    },
+
 }
 
 
