@@ -292,6 +292,17 @@ async def xkcd(ctx, *, q = ''):
     await bot.say(embed=embed(name=title, value='***{}***'.format(mouseover), description=comic, **embeds['xkcd']['info']))
 
 
+@bot.command(pass_context=True)
+async def g(ctx, *, message: str):
+    await bot.delete_message(ctx.message)
+    await bot.say(embed=discord.Embed(colour=colours['sus_green'], description=message))
+
+@bot.command(pass_context=True)
+async def em(ctx, colour: str, *, message: str):
+    await bot.delete_message(ctx.message)
+    await bot.say(embed=discord.Embed(colour=eval(colour), description=message))
+
+
 ################
 ## HELP STUFF ##
 ################
@@ -331,30 +342,31 @@ async def halp(cmd = '', attr = ''):
     await bot.say(embed=embed(value=message, **embeds['halp']['info']))
 
 
-def embed(description='\u034f', colour=discord.Colour.red(), name='\u034f', value='\u034f', inline=True):
+colours = {
+    'default'   : 0x1f8b4c,
+    'brown'     : 0x795548,
+    'sus_green' : 0x1f8b4c,
+}
+
+def embed(description='\u034f', colour=colours['default'], name='\u034f', value='\u034f', inline=True):
     data = discord.Embed(description=description, colour=colour)
     data.add_field(name=name, value=value)
     #data.set_author(name='Author', icon_url='Image URL to set as the thumbnail for the embed here')
     return data
 
 
-colors = {
-    'brown' : 0x795548,
-}
-
-
 embeds = {
     'halp' : {
         'main' : {
             'description'   : 'Halp menu',
-            'colour'        : colors['brown'],
+            'colour'        : colours['default'],
             'name'          : 'Available Commands:',
             'inline'        : True,
         },
 
         'info' : {
             'description'   : 'Halp menu',
-            'colour'        : colors['brown'],
+            'colour'        : colours['default'],
             'name'          : 'Command Info',
             'inline'        : True,
         },
@@ -362,12 +374,12 @@ embeds = {
 
     'xkcd' : {
         'error' : {
-            'colour'        : colors['brown'],
+            'colour'        : colours['default'],
             'inline'        : True,
         },
 
         'info' : {
-            'colour'        : colors['brown'],
+            'colour'        : colours['default'],
             'inline'        : True,
         },
     },
@@ -417,6 +429,6 @@ cmds = {
 ## FANCY TOKEN LOGIN STUFFS ##
 ##############################
 
-with open('self_bot_token.txt') as token:
+with open('self_token.txt') as token:
     bot.run(token.read(), bot=False)
 
