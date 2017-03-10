@@ -1,4 +1,5 @@
 import discord
+import settings
 from discord.ext import commands
 from modules.math.solve import iterate
 from modules.emoji.to_reg import emojify
@@ -14,8 +15,8 @@ import asyncio
 import time
 import random
 
-description = 'A bot to do things that are useful'
-prefix = '.'
+description = 'A selfbot for Discord'
+prefix = settings.prefix
 bot = commands.Bot(command_prefix=[prefix], description=description, self_bot=True)
 
 def camel(string):
@@ -347,7 +348,7 @@ async def halp(cmd = '', attr = ''):
 
 
 colours = {
-    'default'   : 0x1f8b4c,
+    'default'   : settings.default_colour,
     'red'       : discord.Colour.red(),
     'green'     : discord.Colour.green(),
     'light_grey': discord.Colour.light_grey(),
