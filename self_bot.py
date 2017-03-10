@@ -34,7 +34,6 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('---------------------------')
-    bot.load_extension('modules.moderation')
 
 
 @bot.event
@@ -429,6 +428,6 @@ cmds = {
 ## FANCY TOKEN LOGIN STUFFS ##
 ##############################
 
-with open('self_token.txt') as token:
+with open('self_bot_token.txt') as token:
     bot.run(token.read(), bot=False)
 
