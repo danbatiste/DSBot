@@ -1,4 +1,5 @@
 import discord
+import string
 import settings
 from discord.ext import commands
 from modules.math.solve import iterate
@@ -21,6 +22,12 @@ bot = commands.Bot(command_prefix=[prefix], description=description, self_bot=Tr
 
 def camel(string):
     return string[0].upper() + string[1:].lower()
+
+def printable(word):
+    return ''.join(c for c in word if c in string.printable)
+
+def chunk(seq, size):
+    return (seq[pos:pos + size] for pos in range(0, len(seq), size))
 
 ###################
 ## Startup Stuff ##
@@ -193,7 +200,7 @@ async def mathf(ctx, *, message: str):
 
 
 @bot.command(pass_context=True)
-async def shrug(ctx, *, message: str):
+async def shrug(ctx, *, message = ''):
     await bot.delete_message(ctx.message)
     await bot.say(message + ' ¯\\_(ツ)_/¯')
 
@@ -293,11 +300,14 @@ async def xkcd(ctx, *, q = ''):
     #await bot.say('**{}**'.format(title))
     await bot.say(embed=embed(name=title, value='***{}***'.format(mouseover), description=comic, **embeds['xkcd']['info']))
 
+    os.remove('temp/xkcd.png')
+
 
 @bot.command(pass_context=True)
-async def g(ctx, *, message: str):
+async def de(ctx, *, message: str):
     await bot.delete_message(ctx.message)
-    await bot.say(embed=discord.Embed(colour=colours['sus_green'], description=message))
+    await bot.say(embed=discord.Embed(colour=colours['default'], description=message))
+
 
 @bot.command(pass_context=True)
 async def em(ctx, colour: str, *, message: str):
@@ -306,6 +316,37 @@ async def em(ctx, colour: str, *, message: str):
         await bot.say(embed=discord.Embed(colour=colours[colour], description=message))
     except:
         await bot.say(embed=discord.Embed(colour=eval(colour), description=message))
+
+
+@bot.command(pass_context=True)
+async def midge(ctx, n = 0):
+    await bot.delete_message(ctx.message)
+    if not n:
+        await bot.send_file(ctx.message.channel, 'res/midge.png')
+    elif n > 0 and ctx.message.server.id == '136542963336478720':
+        msg = ['<:midge:286338835435225090>' for midge in range(n)]
+        await bot.say(''.join(msg))
+    elif ctx.message.server.id == '136542963336478720':
+        bot.say('<:midge:286338835435225090>')
+
+
+@bot.command(pass_context=True)
+async def read(ctx, path):
+    await bot.delete_message(ctx.message)
+    tmp = []
+
+    with open('temp/' + path, 'rb') as file:
+        for line in file:
+            tmp += [line.decode('utf-8')]
+    message = '\n'.join(tmp)
+    
+    if len(message) > 2000:
+        msgs = chunk(message, 2000)
+        for msg in msgs:
+            await bot.say(msg)
+    else:
+        await bot.say(message)
+
 
 
 ################
@@ -351,6 +392,7 @@ colours = {
     'default'   : settings.default_colour,
     'red'       : discord.Colour.red(),
     'green'     : discord.Colour.green(),
+    'yellow'    : 0xFFFF00,
     'light_grey': discord.Colour.light_grey(),
     'lighter_grey'  : discord.Colour.lighter_grey(),
     'magenta'   : discord.Colour.magenta(),
@@ -374,7 +416,6 @@ colours = {
     'brown'     : 0x795548,
     'sus_green' : 0x1f8b4c,
 }
-colors = colours
 
 
 def embed(description='\u034f', colour=colours['default'], name='\u034f', value='\u034f', inline=True):
@@ -486,9 +527,9 @@ cmds = {
         'Info'  : 'Embeds a message with a given color.',
     },
 
-    'g' : {
-        'Usage' : '`{}g message`'.format(prefix),
-        'Info'  : 'Embeds a message with "suspucious green".',
+    'de' : {
+        'Usage' : '`{}de message`'.format(prefix),
+        'Info'  : 'Embeds a message with the default color.',
     },
 
     'py' : {
@@ -531,6 +572,15 @@ cmds = {
         'Info'  : 'Formats a message with mathematical symbols. ',
     },
 
+    'midge' : {
+        'Usage' : '`{}midge n`'.format(prefix),
+        'Info'  : '<:midge:286338835435225090>',
+    },
+
+    'read' : {
+        'Usage' : '`{}read file`'.format(prefix),
+        'Info'  : 'Reads a file in the temp folder. Breaks the file up into multiple messages if the file has over 2000 characters.',
+    },
 }
 
 
