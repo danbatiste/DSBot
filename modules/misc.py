@@ -1,67 +1,63 @@
 import discord
 from discord.ext import commands
+from modules.math.solve import iterate
 import random
-import json
+import time
+
+
 
 class Misc():
     def __init__(self, bot):
         self.bot = bot
 
-    ##################
-    ## Tags Section ##
-    ##################
+    @commands.command(pass_context=True)
+    async def hi(self, ctx):
+        time.sleep(0.4)
+        await self.bot.delete_message(ctx.message)
+        await self.bot.say('hi')
 
-    # Allowed the removal of a tag from the data file
-    @commands.command(hidden=True)
-    async def deltag(self, command: str):
-        with open("tags.json") as file:
-            tags = json.load(file)
-            file.close()
-        with open("tags.json", "w") as file:
-            if command in tags:
-                del tags[command]
-                save = json.dumps(tags)
-                file.write(save)
-                await self.bot.say("Tag %s has been removed :thumbsup:" %command)
-                print("Unregistered tag %s" %command)
-            else:
-                save = json.dumps(tags)
-                file.write(save)
-                await self.bot.say("Tag not registered, could not delete :thumbsdown: ")
-                print("Tag unregister error, no tag %s" %command)
 
-    # Lists all the tags currently stored
-    # Command output looks really ugly
-    # Needs make-over
-    @commands.command()
-    async def tags(self):
-        """Lists the tags availible to output"""
-        with open("tags.json") as file:
-            tags = json.load(file)
-            taglist = "```Tags:"
-            for x in tags.keys():
-                taglist = "%s\n- %s" %(taglist, x)
-            await self.bot.say("{0} ```".format(taglist))
-            print("Run: Tags Listed")
+    @commands.command(pass_context=True)
+    async def ping(self, ctx):
+        await self.bot.delete_message(ctx.message)
+        tmp = await self.bot.say('pong')
+        time.sleep(5)
+        await self.bot.delete_message(tmp)
 
-    # Allows the user to find and execute a tags
-    @commands.command()
-    async def tag(self, input : str, output : str = None):
-        """Searches tags for output"""
-        with open("tags.json") as file:
-            tags = json.load(file)
-            if input in tags:
-                await self.bot.say(tags[input])
-                print("Run: Tag %s" %input)
-            else:
-                with open("tags.json", "w") as file:
-                    tags[input] = output
-                    save = json.dumps(tags)
-                    file.write(save)
-                    if output.startswith("http"):
-                        await self.bot.say("Tag %s has been added with output <%s> :thumbsup:" % (input, output))
-                    else:
-                        await self.bot.say("Tag %s has been added with output %s :thumbsup:" % (input, output))
-                    print("Registered tag %s" % input)
+
+    @commands.command(pass_context=True)
+    async def pingu(self, ctx):
+        #await self.bot.delete_message(ctx.message)
+        await self.bot.say(random.choice(['noot','pongu']))
+
+
+    @commands.command(pass_context=True)
+    async def _solve(self, ctx, x0: int, iterations, *, y: str):
+        ys = y
+        await self.bot.delete_message(ctx.message)
+        await self.bot.say('Q: `x = {}`'.format(ys))
+        x_ = iterate(ys, iterations, x0)
+        await self.bot.say('=> `x = {}`'.format(str(x_)))
+
+
+    @commands.command(pass_context=True)
+    async def solve(self, ctx, *, y: str):
+        y = ''.join(y.split(' '))
+        if y[:2] == 'x=':
+            y = y[2:]
+        x0 = 2
+        iterations = 100000
+        ys = y
+        await self.bot.say('`Q:` `x = {}`'.format(ys))
+        x_ = iterate(ys, iterations, x0)
+        await self.bot.say('`=>` `x = {}`'.format(str(x_)))
+
+
+    @commands.command(pass_context=True)
+    async def avatar(self, ctx, member: discord.Member):
+        await self.bot.delete_message(ctx.message)
+        await self.bot.say('{0.avatar_url}'.format(member))
+
+
 def setup(bot):
     bot.add_cog(Misc(bot))
