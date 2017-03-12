@@ -91,6 +91,5 @@ async def em(ctx, color: str, *, message: str):
 
 
 
-with open('token.txt') as token:
-    bot.run(token.read(), bot=False)
+bot.run(config.get('main', 'token'), bot=False)
 

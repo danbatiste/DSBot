@@ -35,3 +35,6 @@ colors = {
     'brown'     : 0x795548,
     'sus_green' : 0x1f8b4c,
 }
+
+for color, code in config.items('custom_colors'):
+    colors.update({color : code})
