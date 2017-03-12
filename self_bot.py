@@ -87,7 +87,7 @@ async def em(ctx, color: str, *, message: str):
     try:
         await bot.say(embed=discord.Embed(colour=colors[color], description=message))
     except:
-        await bot.say(embed=discord.Embed(colour=eval(colour), description=message))
+        await bot.say(embed=discord.Embed(colour=eval(color), description=message))
 
 
 

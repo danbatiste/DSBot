@@ -37,4 +37,4 @@ colors = {
 }
 
 for color, code in config.items('custom_colors'):
-    colors.update({color : code})
+    colors.update({color : eval('0x{}'.format(code))})
