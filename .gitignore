@@ -1,7 +1,6 @@
-self_bot_token.txt
+#Files to ignore
+token.txt
 temp/
-
-
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
