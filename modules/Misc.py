@@ -31,7 +31,7 @@ class Misc():
         if type(color) == type(discord.Colour.red()):
             color = color.to_tuple()
         else:
-            color = '#' + format(color, 'x')
+            color = '#' + ('0'*6 + format(color, 'x'))[~5:]
 
         image = Image.new("RGB", (100, 100), color)
         imgByteArr = io.BytesIO()
