@@ -65,7 +65,7 @@ async def reload(ctx):
     await bot.delete_message(ctx.message)
     os.system('cls')
     os.system(sys.argv[0])
-    sys.exit()
+    os._exit(0)
 
 
 @bot.command(pass_context=True)

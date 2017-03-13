@@ -187,13 +187,42 @@ cmds = {
         'Usage' : '`{}pingu`'.format(prefix),
         'Info'  : 'pongu',
     },
-    
+ 
+    'deepfry' : {
+        'Usage' : '`{}deepfry message`'.format(prefix),
+        'Info'  : 'Deep fries a message. Re\🅱laces consonants with \🅱.',
+    },
+   
+    'deeepfry' : {
+        'Usage' : '`{}deeepfry 🅱e🅱🅱a🅱e`'.format(prefix),
+        'Info'  : '\🅱ee\🅱e\🅱 \🅱\🅱ie\🅱 a \🅱e\🅱\🅱a\🅱e. \🅱e\🅱\🅱a\🅱e\🅱 \🅱o\🅱\🅱o\🅱a\🅱\🅱\🅱 \🅱i\🅱h \🅱',
+    },
+
+    'ssd' : {
+        'Usage' : '`{}ssd t message`'.format(prefix),
+        'Info'  : 'Sends a message that silently self destructs in `t` seconds.',
+    },
+
+    'quote' : {
+        'Usage' : '`{}quote message_id [server_id]`'.format(prefix),
+        'Info'  : 'Quotes a message with id `message_id` in server `server_id`. By default, the server is the one the command is executed in.',
+    },
+
+    'upvote' : {
+        'Usage' : '`{}upvote [message_id]`'.format(prefix),
+        'Info'  : 'Upvotes the message `message_id`. Defaults to the most recent message.',
+    },
+
+    'downvote' : {
+        'Usage' : '`{}downvote [message_id]`'.format(prefix),
+        'Info'  : 'Upvotes the message `message_id`. Defaults to the most recent message.',
+    },
 }
 
 
 blank = {
     '' : {
         'Usage' : '`{}`'.format(prefix),
-        'Info'  : 'Reads a file in the temp folder. Breaks the file up into multiple messages if the file has over 2000 characters.',
+        'Info'  : '',
     },
 }

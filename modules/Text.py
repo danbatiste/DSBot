@@ -2,15 +2,51 @@ import discord
 from discord.ext import commands
 import modules.symbols as symbols
 from modules.math.format.mathf import mformat
+from modules.color.embedding import embed, embeds
+from modules.color.color import colors
 from modules.emoji.to_reg import emojify
 from modules.text.format import *
 import time
+import datetime
 
 
 
 class Text():
     def __init__(self, bot):
         self.bot = bot
+
+
+    @commands.command(pass_context=True)
+    async def quote(self, ctx, message_id: str, channel_id: str = None):
+        await self.bot.delete_message(ctx.message)
+        if channel_id == None: channel_id = ctx.message.channel.id
+        channel = self.bot.get_channel(channel_id)
+        async for m in self.bot.logs_from(channel, 10000):
+            if str(m.id) == message_id:
+                t = m.timestamp
+                td = datetime.date.today()
+
+                if (t.day - 1, t.month, t.year) == (td.day, td.month, td.year):
+                    day = 'Today'
+                else:
+                    day = '{}/{}/{}'.format(t.year, t.month, t.day - 1)
+
+                hour, minute = (t.hour + 17)%24, ('0' + str(t.minute))[~1:]
+                merid = 'PM'
+                if hour < 12:
+                    merid = 'AM'
+                hour = hour%12
+                date = '{day} at {hour}:{minute} {merid}'.format(day=day, hour=hour, minute=minute, merid=merid)
+                footer = 'In {} - {}'.format(m.channel, date)
+                try:
+                    colour = m.author.colour
+                except:
+                    colour = colors['white']
+                embed = discord.Embed(inline=False, colour=colour, description=m.clean_content)
+                embed.set_footer(text=footer)
+                embed.set_author(name=m.author.display_name, icon_url='{0.avatar_url}'.format(m.author))
+                await self.bot.say(embed=embed)
+                return 0
 
 
     @commands.command(pass_context=True)
@@ -26,6 +62,12 @@ class Text():
             await self.bot.edit_message(ctx.message, '`' + str(i) + 's` | ' + message)
             time.sleep(1)
             i -= 1
+        await self.bot.delete_message(ctx.message)
+
+    @commands.command(pass_context=True)
+    async def ssd(self, ctx, t: float, *, message: str):
+        await self.bot.edit_message(ctx.message, message)
+        time.sleep(t)
         await self.bot.delete_message(ctx.message)
 
 
@@ -75,6 +117,12 @@ class Text():
     async def shrug(self, ctx, *, message = ''):
         await self.bot.delete_message(ctx.message)
         await self.bot.say(message + ' ¯\\_(ツ)_/¯')
+
+
+    @commands.command(pass_context=True)
+    async def lenny(self, ctx, *, message = ''):
+        await self.bot.delete_message(ctx.message)
+        await self.bot.say(message + ' ( ͡° ͜ʖ ͡°)')
 
 
     @commands.command(pass_context=True)

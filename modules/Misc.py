@@ -10,6 +10,7 @@ class Misc():
     def __init__(self, bot):
         self.bot = bot
 
+
     @commands.command(pass_context=True)
     async def hi(self, ctx):
         time.sleep(0.4)
