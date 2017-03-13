@@ -1,8 +1,17 @@
 import discord
 from discord.ext import commands
 from modules.math.solve import iterate
+from PIL import Image
+from configparser import SafeConfigParser
+from modules.color.color import colors
+import io
 import random
 import time
+
+
+
+config = SafeConfigParser()
+config.read('config.ini')
 
 
 
@@ -10,6 +19,29 @@ class Misc():
     def __init__(self, bot):
         self.bot = bot
 
+
+    @commands.command(pass_context=True)
+    async def color(self, ctx, colour = 'default'):
+        await self.bot.delete_message(ctx.message)
+        try:
+            color = colors[colour]
+        except:
+            color = colour
+
+        if type(color) == type(discord.Colour.red()):
+            color = color.to_tuple()
+        else:
+            color = '#' + format(color, 'x')
+
+        image = Image.new("RGB", (100, 100), color)
+        imgByteArr = io.BytesIO()
+        image.save(imgByteArr, format='PNG')
+        imgByteArr = imgByteArr.getvalue()
+
+
+        await self.bot.edit_profile(config.get('main', 'password'), avatar=imgByteArr)
+
+        
 
     @commands.command(pass_context=True)
     async def hi(self, ctx):

@@ -1,5 +1,4 @@
 #Files to ignore
-*.ini
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
