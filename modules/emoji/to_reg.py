@@ -41,14 +41,14 @@ def emojify(string: str):
                 else:
                     output += emojis.special_chars[char]
             elif char.isdigit():
-                output += ":{}:".format(emojis.numbers[str(char)])
+                output += "\u034F:{}:".format(emojis.numbers[str(char)])
             elif char.isalpha():
-                output += ":regional_indicator_{}:".format(char.lower())
+                output += "\u034F:regional_indicator_{}:".format(char.lower())
             else:
-                output += "**{}**".format(char)
+                output += "\u034F**{}**".format(char)
         
         #Adds spaces between words
         if not words[n] == words[~0]:
-            output += emojis.special_chars[" "]
+            output += emojis.special_chars[' ']
     
     return output

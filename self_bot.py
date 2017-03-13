@@ -82,6 +82,20 @@ async def de(ctx, *, message: str):
 
 
 @bot.command(pass_context=True)
+async def link(ctx):
+    await bot.delete_message(ctx.message)
+    url = 'https://github.com/danbatiste/DSBot'
+    description = 'DSBot - A self bot for Discord, written in Python'
+    title = 'danbatiste/DSBot'
+    embed = discord.Embed(url=url, title=title, description=description, colour=colors['default'])
+    embed.set_thumbnail(url='https://avatars0.githubusercontent.com/u/22204498?v=3&s=460')
+    embed.set_author(name='GitHub', url=url)
+
+    await bot.say(embed=embed)
+
+
+
+@bot.command(pass_context=True)
 async def em(ctx, color: str, *, message: str):
     await bot.delete_message(ctx.message)
     try:
