@@ -2,13 +2,11 @@
 A self bot for Discord, written in Python
 
 #Requirements:
-##Python 3
-
-##discord.py
-
-##lxml
-
-##request
+* Python 3
+* Python modules:
+ * discord.py
+ * lxml
+ * request
 
 
 To install the modules, do
