@@ -17,6 +17,15 @@ class Text():
 
 
     @commands.command(pass_context=True)
+    async def nick(self, ctx, *, nick = None):
+        await self.bot.delete_message(ctx.message)
+        if nick == None:
+            await self.bot.change_nickname(ctx.message.author, ctx.message.author.name)
+            return 0
+        await self.bot.change_nickname(ctx.message.author, nick)
+
+
+    @commands.command(pass_context=True)
     async def quote(self, ctx, message_id: str, channel_id: str = None):
         await self.bot.delete_message(ctx.message)
         if channel_id == None: channel_id = ctx.message.channel.id

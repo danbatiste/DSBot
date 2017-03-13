@@ -217,6 +217,11 @@ cmds = {
         'Usage' : '`{}downvote [message_id]`'.format(prefix),
         'Info'  : 'Upvotes the message `message_id`. Defaults to the most recent message.',
     },
+
+    'nick' : {
+        'Usage' : '`{}nick [nickname]`'.format(prefix),
+        'Info'  : 'Acts exactly like `/nick`. Either changes the nickname, or if no nickname is given, resets it.',
+    },
 }
 
 
