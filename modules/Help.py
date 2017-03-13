@@ -222,6 +222,12 @@ cmds = {
         'Usage' : '`{}nick [nickname]`'.format(prefix),
         'Info'  : 'Acts exactly like `/nick`. Either changes the nickname, or if no nickname is given, resets it.',
     },
+
+    'color' : {
+        'Usage' : '`{}color [color]`'.format(prefix),
+        'Info'  : 'Changes the avatar to the specified color. Defaults to the default color.',
+    },
+
 }
 
 

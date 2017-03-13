@@ -26,7 +26,7 @@ class Misc():
         try:
             color = colors[colour]
         except:
-            color = colour
+            color = eval('0x{}'.format(colour))
 
         if type(color) == type(discord.Colour.red()):
             color = color.to_tuple()
