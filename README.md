@@ -1,26 +1,19 @@
 # DSBot
-A self bot for Discord, written in Python
+A self bot for Discord, written in Python3
 
 #Requirements:
-* Python 3
+* Python 3.5 or above
 * Python modules:
  * discord.py
  * lxml
- * request
+ * requests
  * pillow
 
 
-To install the modules, do
-
-`pip install discord.py lxml request pillow`
-
-
-if that doesn't work, on Windows, do
-
-`%APPDATA%\Local\Programs\Python\Python36-32\python.exe -m pip install discord.py lxml requests`
+To install the modules, simply run `setup.py` or just pip install them.
 
 
 
 #Command Help
 
-For command help, do `.help` in chat.
+For info about avaliable commands, type `.help` in chat.
