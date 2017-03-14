@@ -46,6 +46,7 @@ class Misc():
         
     @commands.command(pass_context=True)
     async def profile(self, ctx, path):
+        await self.bot.delete_message(ctx.message)
         if '://' in path:
             dump = requests.get(path, stream=True)
             with open('temp/profile.png', 'wb') as path:
@@ -58,6 +59,7 @@ class Misc():
 
     @commands.command(pass_context=True)
     async def steal(self, ctx, member: discord.Member):
+        await self.bot.delete_message(ctx.message)
         path = '{0.avatar_url}'.format(member)
         dump = requests.get(path, stream=True)
 

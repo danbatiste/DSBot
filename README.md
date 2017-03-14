@@ -18,3 +18,9 @@ To install the modules, do
 if that doesn't work, on Windows, do
 
 `%APPDATA%\Local\Programs\Python\Python36-32\python.exe -m pip install discord.py lxml requests`
+
+
+
+#Command Help
+
+For command help, do `.help` in chat.
