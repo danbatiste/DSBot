@@ -55,11 +55,11 @@ class Xkcd():
         with open('temp/xkcd.png', 'wb') as path:
             shutil.copyfileobj(fdump, path)
         
-        embed = discord.Embed(url=xkcd_page, title=comic, **embeds['xkcd']['info'])
-        embed.add_field(name=title, value='***{}***'.format(mouseover))
+        embed_ = discord.Embed(url=xkcd_page, title=comic, **embeds['xkcd']['info'])
+        embed_.add_field(name=title, value='***{}***'.format(mouseover))
         
         await self.bot.send_file(ctx.message.channel, 'temp/xkcd.png')
-        await self.bot.say(embed=embed)
+        await self.bot.say(embed=embed_)
 
         os.remove('temp/xkcd.png')
 

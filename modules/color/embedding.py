@@ -36,6 +36,7 @@ embeds = {
     'xkcd' : {
         'error' : {
             'colour'        : colors['default'],
+            'value'         : '\u034F',
             'inline'        : True,
         },
 
