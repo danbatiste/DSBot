@@ -18,7 +18,7 @@ class Help():
 
 
     @commands.command()
-    async def halp(self, cmd = '', attr = ''):
+    async def help(self, cmd = '', attr = ''):
         global cmds
         global em
         if not cmd:
@@ -26,37 +26,37 @@ class Help():
             formatted = ['`{}`'.format(cmd) for cmd in cmdlist[:~1]]
             message = ''.join([
                 '{} and {}.'.format(', '.join(formatted), '`{}`'.format(cmdlist[~0])),
-                'Type `{}halp command` for more info about a specific commands.'.format(prefix),
+                '\n\nType `{}help command` for more info about a specific commands.'.format(prefix),
                 ])
-            await self.bot.say(embed=embed(value=message, **embeds['halp']['main']))
+            await self.bot.say(embed=embed(value=message, **embeds['help']['main']))
             return 0
 
         if not cmd in cmds:
             message = 'Command `{}` not found.'
-            await self.bot.say(embed=embed(value=message, **embeds['halp']['info']))
+            await self.bot.say(embed=embed(value=message, **embeds['help']['info']))
             return 0
 
         if attr and camel(attr) not in cmds[cmd]:
             message = '{} not an attribute of `{}`'.format(camel(attr), cmd)
-            await self.bot.say(embed=embed(value=message, **embeds['halp']['info']))
+            await self.bot.say(embed=embed(value=message, **embeds['help']['info']))
             return 0
 
         if attr:
             message = '**__{}__**: {}'.format(camel(attr), cmds[cmd][camel(attr)])
-            await self.bot.say(embed=embed(value=message, **embeds['halp']['info']))
+            await self.bot.say(embed=embed(value=message, **embeds['help']['info']))
             return 0
 
         usage = '**__Usage:__** {}'.format(cmds[cmd]['Usage'])
         info = '**__Info:__** {}'.format(cmds[cmd]['Info'])
         message = '\n'.join([usage, info])
-        await self.bot.say(embed=embed(value=message, **embeds['halp']['info']))
+        await self.bot.say(embed=embed(value=message, **embeds['help']['info']))
 
         
     @commands.command(pass_context=True)
     async def new(self, ctx):
         cmds_f = ['`{}`'.format(cmd) for cmd in new]
         message = ', '.join(cmds_f[:~0]) + ' and `{}`.'.format(cmds_f[~0])
-        await self.bot.say(embed=embed(value=message, **embeds['halp']['new']))
+        await self.bot.say(embed=embed(value=message, **embeds['help']['new']))
 
 
 
@@ -65,7 +65,7 @@ def setup(bot):
 
 
 cmdlist = {
-    'halp' : {
+    'help' : {
         'Usage' : '`{}help [command]`'.format(prefix),
         'Info'  : 'Displays all commands, and displays information about specific commands',
         },

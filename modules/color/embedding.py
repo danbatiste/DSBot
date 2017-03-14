@@ -10,23 +10,23 @@ def embed(description='\u034f', colour=colors['default'], url=None, title=None, 
 
 
 embeds = {
-    'halp' : {
+    'help' : {
         'main' : {
-            'description'   : 'Halp menu',
+            'description'   : 'Help menu',
             'colour'        : colors['default'],
             'name'          : 'Available Commands:',
             'inline'        : True,
         },
 
         'info' : {
-            'description'   : 'Halp menu',
+            'description'   : 'Help menu',
             'colour'        : colors['default'],
             'name'          : 'Command Info',
             'inline'        : True,
         },
 
         'new' : {
-            'description'   : 'Halp menu',
+            'description'   : 'Help menu',
             'colour'        : colors['default'],
             'name'          : 'New commands:',
             'inline'        : True,

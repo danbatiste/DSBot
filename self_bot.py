@@ -25,7 +25,7 @@ config.read('config.ini')
 
 description = 'A selfbot for Discord by danb'
 prefix = config.get('main', 'prefix')
-bot = commands.Bot(command_prefix=[prefix], description=description, self_bot=True)
+bot = commands.Bot(command_prefix=[prefix], description=description, self_bot=True, help_attrs={'name':'0'*100})
 
 
 
