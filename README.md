@@ -7,11 +7,12 @@ A self bot for Discord, written in Python
  * discord.py
  * lxml
  * request
+ * pillow
 
 
 To install the modules, do
 
-`pip install discord.py lxml request`
+`pip install discord.py lxml request pillow`
 
 
 if that doesn't work, on Windows, do

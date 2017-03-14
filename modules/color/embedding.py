@@ -24,6 +24,13 @@ embeds = {
             'name'          : 'Command Info',
             'inline'        : True,
         },
+
+        'new' : {
+            'description'   : 'Halp menu',
+            'colour'        : colors['default'],
+            'name'          : 'New commands:',
+            'inline'        : True,
+        },
     },
 
     'xkcd' : {

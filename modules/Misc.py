@@ -41,7 +41,6 @@ class Misc():
         image.save(imgByteArr, format='PNG')
         imgByteArr = imgByteArr.getvalue()
 
-
         await self.bot.edit_profile(config.get('main', 'password'), avatar=imgByteArr)
 
         

@@ -51,13 +51,20 @@ class Help():
         message = '\n'.join([usage, info])
         await self.bot.say(embed=embed(value=message, **embeds['halp']['info']))
 
+        
+    @commands.command(pass_context=True)
+    async def new(self, ctx):
+        cmds_f = ['`{}`'.format(cmd) for cmd in new]
+        message = ', '.join(cmds_f[:~0]) + ' and `{}`.'.format(cmds_f[~0])
+        await self.bot.say(embed=embed(value=message, **embeds['halp']['new']))
+
 
 
 def setup(bot):
     bot.add_cog(Help(bot))
 
 
-cmds = {
+cmdlist = {
     'halp' : {
         'Usage' : '`{}help [command]`'.format(prefix),
         'Info'  : 'Displays all commands, and displays information about specific commands',
@@ -104,8 +111,8 @@ cmds = {
         },
 
     'e' : {
-        'Usage' : '`{}e message'.format(prefix),
-        'Info'  : 'Converts the message to emoji. `/r for a random emoji, `/heart` for a random heart, and `/face` for a random face.',
+        'Usage' : '`{}e message`'.format(prefix),
+        'Info'  : 'Converts the message to emoji. `/r` for a random emoji, `/heart` for a random heart, and `/face` for a random face.',
     },
 
     'shrug' : {
@@ -227,7 +234,9 @@ cmds = {
         'Usage' : '`{}color [color]`'.format(prefix),
         'Info'  : 'Changes the avatar to the specified color. Defaults to the default color.',
     },
+}
 
+new = {
     'profile' : {
         'Usage' : '`{}profile (url/path)`'.format(prefix),
         'Info'  : 'Changes your avatar to the image in the path/url. Path can be local or global.',
@@ -237,9 +246,10 @@ cmds = {
         'Usage' : '`{}steal user`'.format(prefix),
         'Info'  : 'Steals a user\'s avatar.',
     },
-
 }
 
+cmds = cmdlist
+cmds.update(new)
 
 blank = {
     '' : {
