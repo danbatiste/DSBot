@@ -42,6 +42,7 @@ async def on_ready():
     bot.load_extension('modules.Misc')
     bot.load_extension('modules.Text')
     bot.load_extension('modules.Emoji')
+    bot.load_extension('modules.Voice')
     bot.load_extension('modules.Help')
 
 

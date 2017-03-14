@@ -2,8 +2,8 @@ import discord
 from .color import colors
 
 
-def embed(description='\u034f', colour=colors['default'], name='\u034f', value='\u034f', inline=True):
-    data = discord.Embed(description=description, colour=colour)
+def embed(description='\u034f', colour=colors['default'], url=None, title=None, name='\u034f', value=None, inline=True):
+    data = discord.Embed(url=url, title=title, description=description, colour=colour)
     data.add_field(name=name, value=value)
     #data.set_author(name='Author', icon_url='Image URL to set as the thumbnail for the embed here')
     return data

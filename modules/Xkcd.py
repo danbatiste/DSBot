@@ -25,8 +25,8 @@ class Xkcd():
                 return 0
         else:
             n = q
-
-        page = requests.get('https://xkcd.com/{}'.format(n))
+        xkcd_page = 'https://xkcd.com/{}'.format(n)
+        page = requests.get(xkcd_page)
         tree = html.fromstring(page.content)
 
         try:
@@ -55,8 +55,11 @@ class Xkcd():
         with open('temp/xkcd.png', 'wb') as path:
             shutil.copyfileobj(fdump, path)
         
+        embed = discord.Embed(url=xkcd_page, title=comic, **embeds['xkcd']['info'])
+        embed.add_field(name=title, value='***{}***'.format(mouseover))
+        
         await self.bot.send_file(ctx.message.channel, 'temp/xkcd.png')
-        await self.bot.say(embed=embed(name=title, value='***{}***'.format(mouseover), description=comic, **embeds['xkcd']['info']))
+        await self.bot.say(embed=embed)
 
         os.remove('temp/xkcd.png')
 
