@@ -228,6 +228,16 @@ cmds = {
         'Info'  : 'Changes the avatar to the specified color. Defaults to the default color.',
     },
 
+    'profile' : {
+        'Usage' : '`{}profile (url/path)`'.format(prefix),
+        'Info'  : 'Changes your avatar to the image in the path/url. Path can be local or global.',
+    },
+
+    'steal' : {
+        'Usage' : '`{}steal user`'.format(prefix),
+        'Info'  : 'Steals a user\'s avatar.',
+    },
+
 }
 
 

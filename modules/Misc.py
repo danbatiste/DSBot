@@ -1,10 +1,13 @@
 import discord
 from discord.ext import commands
 from modules.math.solve import iterate
+import imghdr
 from PIL import Image
 from configparser import SafeConfigParser
 from modules.color.color import colors
 import io
+import shutil
+import requests
 import random
 import time
 
@@ -42,6 +45,33 @@ class Misc():
         await self.bot.edit_profile(config.get('main', 'password'), avatar=imgByteArr)
 
         
+    @commands.command(pass_context=True)
+    async def profile(self, ctx, path):
+        if '://' in path:
+            dump = requests.get(path, stream=True)
+            with open('temp/profile.png', 'wb') as path:
+                shutil.copyfileobj(dump.raw, path)
+            path = 'temp/profile.png'
+
+        with open(path, 'rb') as file:
+            await self.bot.edit_profile(config.get('main', 'password'), avatar=file.read())
+
+
+    @commands.command(pass_context=True)
+    async def steal(self, ctx, member: discord.Member):
+        path = '{0.avatar_url}'.format(member)
+        dump = requests.get(path, stream=True)
+
+        with open('temp/profile.webp', 'wb') as file:
+            shutil.copyfileobj(dump.raw, file)
+
+        Image.open('temp/profile.webp').convert("RGB").save('temp/profile.jpg','jpeg')
+        path = 'temp/profile.jpg'
+
+        with open(path, 'rb') as file:
+            await self.bot.edit_profile(config.get('main', 'password'), avatar=file.read())
+
+
 
     @commands.command(pass_context=True)
     async def hi(self, ctx):
