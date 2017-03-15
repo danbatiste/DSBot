@@ -75,7 +75,7 @@ if not is_current_version:
     update(url)
     shutil.rmtree('update_files')
     print('Update succeeded! Bot is now latest version.')
-    print('Press any key to continue...')
+    input('Press any key to continue...')
 
 else:
     shutil.rmtree('update_files/')
