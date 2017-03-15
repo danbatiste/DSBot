@@ -43,6 +43,7 @@ async def on_ready():
     bot.load_extension('modules.Text')
     bot.load_extension('modules.Emoji')
     bot.load_extension('modules.Help')
+    bot.load_extension('modules.Commands')
 
 
 @bot.event

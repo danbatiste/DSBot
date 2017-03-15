@@ -1,0 +1,7 @@
+.\\config.ini
+.\\update.py
+.\\res
+.\\res\\version.json
+.\\res\\commands.json
+.\\update_files
+.\\update_files\\version.json

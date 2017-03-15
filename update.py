@@ -5,7 +5,10 @@ import filecmp
 import shutil
 
 url = 'https://api.github.com/repos/danbatiste/dsbot/contents/'
-blacklisted = ['.\\config.ini', '.\\update.py', '.\\res', '.\\res\\version.json', '.\\update_files', '.\\update_files\\version.json']
+blacklisted = []
+with open('res/blacklist.txt','r') as file:
+    for line in file:
+        blacklisted += line
 
 
 def abort_update():
