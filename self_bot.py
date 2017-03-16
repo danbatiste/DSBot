@@ -43,13 +43,12 @@ async def on_ready():
     bot.load_extension('modules.Text')
     bot.load_extension('modules.Emoji')
     bot.load_extension('modules.Help')
-    bot.load_extension('modules.Commands')
+    bot.load_extension('modules.CustomCommands')
 
 
 @bot.event
 async def send(channel, message):
     await bot.send_message(channel, message)
-
 
 
 @bot.command(pass_context=True)
@@ -74,6 +73,11 @@ async def status(ctx, *, message: str):
     game = discord.Game(name=message)
     await bot.delete_message(ctx.message)
     await bot.change_presence(game=game)
+
+
+@bot.command(pass_context=True)
+async def update():
+    os.system('update.py')
 
 
 @bot.command(pass_context=True)
