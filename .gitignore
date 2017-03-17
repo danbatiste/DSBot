@@ -1,5 +1,7 @@
 #Files to ignore
+config.ini
 *.ini
+unused/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

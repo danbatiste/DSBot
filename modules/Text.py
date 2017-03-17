@@ -123,18 +123,6 @@ class Text():
 
 
     @commands.command(pass_context=True)
-    async def shrug(self, ctx, *, message = ''):
-        await self.bot.delete_message(ctx.message)
-        await self.bot.say(message + ' ¯\\_(ツ)_/¯')
-
-
-    @commands.command(pass_context=True)
-    async def lenny(self, ctx, *, message = ''):
-        await self.bot.delete_message(ctx.message)
-        await self.bot.say(message + ' ( ͡° ͜ʖ ͡°)')
-
-
-    @commands.command(pass_context=True)
     async def read(self, ctx, path):
         await self.bot.delete_message(ctx.message)
         tmp = []
