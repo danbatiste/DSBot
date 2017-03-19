@@ -257,9 +257,9 @@ new = {
         'Info'  : 'Bypasses swear filters.',
     },
 
-    'command' : {
-        'Usage' : '`{}command (+/-/list) cmd value`'.format(prefix),
-        'Info'  : 'Adds or removes a custom command. The argument `list` lists all available commands. Can be run with `{}cmd message`. Outputs `message`, followed by the value of the command, `value`.'.format(prefix),
+    'cmd' : {
+        'Usage' : '`{}cmd (+/-/list) cmd value`'.format(prefix),
+        'Info'  : 'Adds or removes a custom command. The argument `list` lists all available commands. Can be run with `{}custom_command_name_goes_here message`. Outputs `message`, followed by the value of the command, `value`.'.format(prefix),
     },
 
     'me' : {

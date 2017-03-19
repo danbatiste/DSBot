@@ -1,6 +1,6 @@
 #Files to ignore
 config.ini
-*.ini
+./config.ini
 unused/
 
 # Byte-compiled / optimized / DLL files
