@@ -44,6 +44,8 @@ async def on_ready():
     bot.load_extension('modules.Emoji')
     bot.load_extension('modules.Help')
     #bot.load_extension('modules.CustomCommands')
+    try: await bot.send_message(1, '')
+    except: pass
 
 
 @bot.event
