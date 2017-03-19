@@ -22,6 +22,19 @@ class Text():
         self.bot = bot
 
 
+
+    @commands.command(pass_context=True)
+    async def me(self, ctx, *, message):
+        await self.bot.delete_message(ctx.message)
+        await self.bot.say('*{}*'.format(message))
+
+
+    @commands.command(pass_context=True)
+    async def clap(self, ctx, *, message):
+        await self.bot.delete_message(ctx.message)
+        await self.bot.say(' :clap: '.join(message.split(' ')))
+
+
     @commands.command(pass_context=True)
     async def bypass(self, ctx, *, message):
         await self.bot.delete_message(ctx.message)
