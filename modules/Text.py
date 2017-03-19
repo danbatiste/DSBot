@@ -7,13 +7,26 @@ from modules.color.color import colors
 from modules.emoji.to_reg import emojify
 from modules.text.format import *
 import time
+import subprocess
 import datetime
+
+
+
+def replace(string, str1, str2):
+    return str2.join(string.split(str1))
 
 
 
 class Text():
     def __init__(self, bot):
         self.bot = bot
+
+
+    @commands.command(pass_context=True)
+    async def bypass(self, ctx, *, message):
+        await self.bot.delete_message(ctx.message)
+        message = '\u034F'.join(list(message))
+        await self.bot.say(message)
 
 
     @commands.command(pass_context=True)

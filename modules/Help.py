@@ -246,6 +246,17 @@ new = {
         'Usage' : '`{}steal user`'.format(prefix),
         'Info'  : 'Steals a user\'s avatar.',
     },
+
+    'timer' : {
+        'Usage' : '`{}timer s`'.format(prefix),
+        'Info'  : 'Counts down to `s` seconds.',
+    },
+
+    'bypass' : {
+        'Usage' : '`{}bypass message`'.format(prefix),
+        'Info'  : 'Bypasses swear filters.',
+    },
+    
 }
 
 cmds = cmdlist
