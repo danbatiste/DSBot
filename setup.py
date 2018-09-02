@@ -5,6 +5,7 @@ dependencies = [
     'lxml',
     'requests',
     'pillow',
+    'discord.py',
 ]
 
 def install(package):
